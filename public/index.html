@@ -428,23 +428,16 @@ heroku addons:add neo4j --app {app name}</pre>
 					
 						<h3 class="title18">Try these Cypher queries on the live data</h3>
 						<ol>
-							<li>Find the Doctor:
+							<li>All talks:
 							<pre>
-START doctor = node:characters(character='Doctor') RETURN doctor;</pre>
+start n=node(0) match n--m--talks return count(talks);</pre>
 							</li>
-							<li>Count all episodes:
-							<pre>
-START episodes= node:episodes('episode:*') RETURN COUNT(episodes);</pre>
+							<li>Graph database track:
+							<pre>start t=node:tags(tag="Graph Databases") match t<-[:tagged]-talk-[:at]->slot return talk order by slot.slot desc;</pre>
 							</li>
-							<li>Find episodes with Cybermen:
+							<li>People from Neo Technology:
 							<pre>
-START cybermen = node:species(species ='Cyberman') 
-MATCH (cybermen)-[:APPEARED_IN]->(episode) RETURN episode;</pre>
-							</li>
-							<li>Find friends and foes of the Doctor:
-							<pre>
-START doctor = node:characters(character= 'Doctor') MATCH (doctor)<-[:ENEMY_OF|COMPANION_OF]-(other)
-WHERE has(other.character) RETURN other.character;</pre>
+start c=node:companies(company="Neo Technology") match c<-[:works_at]-p return p;</pre>
 							</li>
 						</ol>
 						<p>&nbsp;</p>
